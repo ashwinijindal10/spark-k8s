@@ -22,6 +22,7 @@ spec:
             --conf spark.kubernetes.container.image.pullPolicy=Always \
             --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
             --conf spark.kubernetes.pyspark.pythonVersion=3 \
+            --conf spark.jars.ivy=/tmp/.ivy2 \
             local:///opt/jobs/etl_job.py"
           ]
       serviceAccountName: spark
