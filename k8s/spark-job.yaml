@@ -12,7 +12,7 @@ spec:
             "/bin/sh",
             "-c",
             "/opt/spark/bin/spark-submit \
-            --master k8s://http://127.0.0.1:8001 \   
+            --master k8s://http://127.0.0.1:6443 \   
             --deploy-mode cluster \
             --name spark-on-eks \
             --conf spark.executor.instances=2 \
