@@ -53,10 +53,10 @@ def main():
     log.warn('etl_job is up-and-running')
 
     # execute ETL pipeline
-    data = extract_data(spark)
-    data_transformed = transform_data(data, config['steps_per_floor'])
-    load_data(data_transformed)
-
+    #data = extract_data(spark)
+    #data_transformed = transform_data(data, config['steps_per_floor'])
+    #load_data(data_transformed)
+    create_test_data(spark, config)
     # log the success and terminate Spark application
     log.warn('test_etl_job is finished')
     spark.stop()
@@ -132,7 +132,7 @@ def create_test_data(spark, config):
     ]
 
     df = spark.createDataFrame(local_records)
-
+    '''
     # write to Parquet file format
     (df
      .coalesce(1)
@@ -147,7 +147,8 @@ def create_test_data(spark, config):
      .coalesce(1)
      .write
      .parquet('tests/test_data/employees_report', mode='overwrite'))
-
+    '''
+    print("all done success")
     return None
 
 

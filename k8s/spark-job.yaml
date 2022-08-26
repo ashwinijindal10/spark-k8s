@@ -12,7 +12,7 @@ spec:
             "/bin/sh",
             "-c",
             "/opt/spark/bin/spark-submit \
-            --master k8s://http://127.0.0.1:6443 \   
+            --master k8s://https://kubernetes.docker.internal:6443 \   
             --deploy-mode cluster \
             --name spark-on-eks \
             --conf spark.executor.instances=2 \
@@ -21,10 +21,14 @@ spec:
             --conf spark.kubernetes.container.image=ashwinijindal10/spark-code:latest \
             --conf spark.kubernetes.container.image.pullPolicy=Always \
             --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
-            --conf spark.kubernetes.pyspark.pythonVersion=3 \
-            --conf spark.jars.ivy=/tmp/.ivy2 \
+            --conf spark.pyspark.python=3 \
+            --conf spark.pyspark.driver.python=3 \
+            --conf spark.jars.ivy=/tmp/.ivy \
             local:///opt/jobs/etl_job.py"
           ]
       serviceAccountName: spark
       restartPolicy: Never
-  backoffLimit: 4
+      securityContext:
+        runAsUser: 65534
+        runAsGroup: 65534
+  backoffLimit: 2
