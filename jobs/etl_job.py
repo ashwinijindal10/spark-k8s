@@ -45,10 +45,12 @@ def main():
     :return: None
     """
     # start Spark application and get Spark session, logger and config
+
     spark, log, config = start_spark(
         app_name='my_etl_job',
-        files=['configs/etl_config.json'])
+        files=[])
 
+    # 'configs/etl_config.json'
     # log that main ETL job is starting
     log.warn('etl_job is up-and-running')
 

@@ -1,0 +1,46 @@
+ exec /usr/bin/tini -s -- /opt/spark/bin/spark-submit --conf spark.driver.bindAddress=10.1.0.74 --deploy-mode client --properties-file /opt/spark/conf/spark.properties --class org.apache.spark.deploy.PythonRunner local:///opt/jobs/etl_job.py
+Exception in thread "main" java.io.IOException: Cannot run program "3": error=2, No such file or directory
+	at java.base/java.lang.ProcessBuilder.start(Unknown Source)
+	at java.base/java.lang.ProcessBuilder.start(Unknown Source)
+	at org.apache.spark.deploy.PythonRunner$.main(PythonRunner.scala:97)
+	at org.apache.spark.deploy.PythonRunner.main(PythonRunner.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.apache.spark.deploy.JavaMainApplication.start(SparkApplication.scala:52)
+	at org.apache.spark.deploy.SparkSubmit.org$apache$spark$deploy$SparkSubmit$$runMain(SparkSubmit.scala:958)
+	at org.apache.spark.deploy.SparkSubmit.doRunMain$1(SparkSubmit.scala:180)
+	at org.apache.spark.deploy.SparkSubmit.submit(SparkSubmit.scala:203)
+	at org.apache.spark.deploy.SparkSubmit.doSubmit(SparkSubmit.scala:90)
+	at org.apache.spark.deploy.SparkSubmit$$anon$2.doSubmit(SparkSubmit.scala:1046)
+	at org.apache.spark.deploy.SparkSubmit$.main(SparkSubmit.scala:1055)
+	at org.apache.spark.deploy.SparkSubmit.main(SparkSubmit.scala)
+Caused by: java.io.IOException: error=2, No such file or directory
+	at java.base/java.lang.ProcessImpl.forkAndExec(Native Method)
+	at java.base/java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.base/java.lang.ProcessImpl.start(Unknown Source)
+	... 16 more
+
+
+ --conf spark.pyspark.python=3 \
+ --conf spark.pyspark.driver.python=3 \
+ --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
+docker run --rm -it --entrypoint bash
+This document is designed to be read in parallel with the code in the `pyspark-template-project` repository. Together, these constitute what we consider to be a 'best practices' approach to writing ETL jobs using Apache Spark and its Python ('PySpark') APIs. This project addresses the following topics:
+
+docker build -t ashwinijindal10/spark-code  .
+docker push ashwinijindal10/spark-code
+
+kubectl delete jobs spark-on-eks
+kubectl apply -f spark-job.yaml
+
+kubectl get jobs
+kubectl get pods
+# dashboard
+kubectl -n kubernetes-dashboard create token admin-user
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/pod/default/spark-on-eks-rz98c?namespace=default
+## ETL Project Structure
+
+ kubectl port-forward <driver-pod-name> 4040:4040
+ http://localhost:4040.

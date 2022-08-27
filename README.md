@@ -1,20 +1,5 @@
 # PySpark Example Project
- --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
-docker run --rm -it --entrypoint bash
-This document is designed to be read in parallel with the code in the `pyspark-template-project` repository. Together, these constitute what we consider to be a 'best practices' approach to writing ETL jobs using Apache Spark and its Python ('PySpark') APIs. This project addresses the following topics:
-
-docker build -t ashwinijindal10/spark-code  .
-docker push ashwinijindal10/spark-code
-
-kubectl delete jobs spark-on-eks
-kubectl apply -f spark-job.yaml 
-
-kubectl get jobs 
-kubectl get pods
-# dashboard 
-kubectl -n kubernetes-dashboard create token admin-user
-http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/pod/default/spark-on-eks-rz98c?namespace=default
-## ETL Project Structure
+ 
 
 The basic project structure is as follows:
 
