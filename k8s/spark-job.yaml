@@ -5,9 +5,16 @@ metadata:
 spec:
   template:
     spec:
+      volumes:
+        - name: task-pv-storage
+          persistentVolumeClaim:
+            claimName: spark-pv-claim
       containers:
         - name: spark
           image: ashwinijindal10/spark-code:latest
+          volumeMounts:
+            - mountPath: /opt/slogs
+              name: task-pv-storage
           command: [
             "/bin/sh",
             "-c",
@@ -18,10 +25,12 @@ spec:
             --conf spark.executor.instances=2 \
             --conf spark.executor.memory=1G \
             --conf spark.executor.cores=1 \
+            --conf spark.kubernetes.driver.pod.name=spark-driver \
             --conf spark.kubernetes.container.image=ashwinijindal10/spark-code:latest \
             --conf spark.kubernetes.container.image.pullPolicy=Always \
             --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
             --conf spark.jars.ivy=/tmp/.ivy \
+            --conf spark.eventLog.dir=/opt/slogs \
             local:///opt/jobs/etl_job.py"
           ]
       serviceAccountName: spark

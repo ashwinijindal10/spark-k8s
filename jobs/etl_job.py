@@ -45,7 +45,7 @@ def main():
     :return: None
     """
     # start Spark application and get Spark session, logger and config
-
+    print('starting')
     spark, log, config = start_spark(
         app_name='my_etl_job',
         files=[])
